@@ -1,6 +1,7 @@
 // DEPENDENCIES
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // CONFIGURATION
 require("dotenv").config();
@@ -9,12 +10,13 @@ const app = express();
 mongoose.connect(process.env.MONGO_URI);
 
 // MIDDLEWARE
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // CONTROLLERS
 const booksController = require("./controllers/books_controller.js");
-app.use("/books", booksController);
+app.use("/books", cors(), booksController);
 
 // ROUTES
 app.get("/", (req, res) => {
