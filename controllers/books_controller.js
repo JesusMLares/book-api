@@ -77,7 +77,7 @@ router.put('/:id', (req, res) => {
 
 // DELETE:
 router.delete('/:id', (req, res) => {
-    Book.findByIdAndRemove(req.params.id).then((deletedBook) => {
+    Book.findByIdAndDelete(req.params.id).then((deletedBook) => {
         res.json(deletedBook);
     });
 });
