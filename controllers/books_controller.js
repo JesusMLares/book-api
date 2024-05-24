@@ -13,6 +13,13 @@ router.get('/', (req, res) => {
         });
 });
 
+// CREATE:
+router.post('/', (req, res) => {
+    Book.create(req.body).then((newBook) => {
+        res.json(newBook);
+    })
+})
+
 // SHOW:
 router.get('/:id', (req, res) => {
     Book.findById(req.params.id).then((foundBook) => {
@@ -20,6 +27,20 @@ router.get('/:id', (req, res) => {
     })
     .catch((error) => {
         res.status(404).json({ error: "Book not found" });
+    });
+});
+
+// UPDATE:
+router.put('/:id', (req, res) => {
+    Book.findByIdAndUpdate(req.params.id, req.body, {new: true}).then((updatedBook) => {
+        res.json(updatedBook);
+    });
+});
+
+// DELETE:
+router.delete('/:id', (req, res) => {
+    Book.findByIdAndRemove(req.params.id).then((deletedBook) => {
+        res.json(deletedBook);
     });
 });
 
